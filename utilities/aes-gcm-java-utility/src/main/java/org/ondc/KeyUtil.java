@@ -62,7 +62,7 @@ public class KeyUtil {
         public String getPrivateKey() {
             return privateKey;
         }
-
+        
         /**
          * String Formatting.
          */
@@ -113,7 +113,7 @@ public class KeyUtil {
             
             // Generate the Shared Key.
             ka.doPhase(publicKey, true);
-            SecretKey sKey = ka.generateSecret("X25519");
+            SecretKey sKey = ka.generateSecret("AES");
             sharedKey = keyToString(sKey);
             
         } catch (Exception e) {
