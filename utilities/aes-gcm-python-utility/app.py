@@ -2,7 +2,6 @@ import encryption_util
 import key_util
 import builtins
 
-
 if __name__=="__main__":
     println=builtins.print
     keypair1=key_util.generate_key_pair()
@@ -13,7 +12,6 @@ if __name__=="__main__":
     println("shared_key1:",shared_key1)
     println("shared_key2:",shared_key2)
     println("shared_key1==shared_key2 ==>",shared_key1==shared_key2)
-    
     
     raw_data = "Hello This is ONDC Test Data"
     
