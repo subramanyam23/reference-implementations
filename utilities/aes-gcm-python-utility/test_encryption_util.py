@@ -9,10 +9,12 @@ class TestEnc(unittest.TestCase):
         keypair1=key_util.generate_key_pair()
         keypair2=key_util.generate_key_pair()
 
+        # positive testcases
         shared_key1=key_util.generate_shared_key(keypair1.private_key,keypair2.public_key)
         shared_key2=key_util.generate_shared_key(keypair2.private_key,keypair1.public_key)
         self.assertEqual(shared_key1,shared_key2,"must be same")
 
+        #negative testcase
         shared_key2=key_util.generate_shared_key(keypair1.private_key,keypair1.public_key)
         self.assertNotEqual(shared_key1,shared_key2,"should be different")
 
@@ -33,9 +35,5 @@ class TestEnc(unittest.TestCase):
         decrypted_data=encryption_util.decrypt_data(invalid_shared_key,encrypted_data)
         self.assertNotEqual(decrypted_data,raw_data,'should be different')
         
-
-
-
-
 if __name__=='__main__':
     unittest.main()
