@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>App.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">encryption_util</a> &gt; <a href="index.source.html" class="el_package">org.ondc</a> &gt; <span class="el_source">App.java</span></div><h1>App.java</h1><pre class="source lang-java linenums">package org.ondc;
+
+import java.security.Security;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.ondc.KeyUtil.DHKeyPair;
+
+/**
+ * Class depicting the usage of the utility.
+ */
+<span class="nc" id="L13">public class App {</span>
+<span class="nc" id="L14">    private static Logger logger = Logger.getLogger(&quot;InfoLogger&quot;);</span>
+
+    /**
+     * Main Function.
+     * @param args Main Function Args.
+     */
+    public static void main(String[] args) {
+    	
+    	// Adding the BouncyCastleProvider to java.security.Security.
+<span class="nc" id="L23">        Security.addProvider(new BouncyCastleProvider());</span>
+        
+        // Generate Key Pair for User 1.
+<span class="nc" id="L26">        DHKeyPair keyPair1 = KeyUtil.generateKeyPair();</span>
+<span class="nc" id="L27">        logger.log(Level.INFO, &quot;Key Pair 1 ==&gt; {0}&quot;, keyPair1);</span>
+        
+        // Generate Key Pair for User 2.
+<span class="nc" id="L30">        DHKeyPair keyPair2 = KeyUtil.generateKeyPair();</span>
+<span class="nc" id="L31">        logger.log(Level.INFO, &quot;Key Pair 2 ==&gt; {0}&quot;, keyPair2);</span>
+
+        // Generate Shared Key with User 1's Private Key and User 2's Public Key.
+<span class="nc" id="L34">        String sharedKey1 = KeyUtil.generateSharedKey(keyPair1.getPrivateKey(), keyPair2.getPublicKey());</span>
+<span class="nc" id="L35">        logger.log(Level.INFO, &quot;SharedKey1 ==&gt; {0}&quot;, sharedKey1);</span>
+        
+        // Generate Shared Key with User 2's Private Key and User 1's Public Key.
+<span class="nc" id="L38">        String sharedKey2 = KeyUtil.generateSharedKey(keyPair2.getPrivateKey(), keyPair1.getPublicKey());</span>
+<span class="nc" id="L39">        logger.log(Level.INFO, &quot;SharedKey2 ==&gt; {0}&quot;, sharedKey2);</span>
+
+        // Comparing the two Shared keys generated above.
+<span class="nc" id="L42">        logger.log(Level.INFO, &quot;sharedKey1 == sharedKey2 ==&gt; {0}&quot;, sharedKey1.equals(sharedKey2));</span>
+
+        // Initializing the raw text to be encrypted.
+<span class="nc" id="L45">        String rawData = &quot;Hello This is ONDC Test Data&quot;;</span>
+        
+        // Encrypting the raw data.
+<span class="nc" id="L48">        String encryptedData = EncryptionUtil.encryptData(sharedKey1, rawData);</span>
+<span class="nc" id="L49">        logger.log(Level.INFO, &quot;Encrypted Data ===&gt; {0}&quot;, encryptedData);</span>
+
+        // Decrypting the Encrypted data.
+<span class="nc" id="L52">        String decryptedData =  EncryptionUtil.decryptData(sharedKey2, encryptedData);</span>
+<span class="nc" id="L53">        logger.log(Level.INFO, &quot;Decrypted Data ===&gt; {0}&quot;, decryptedData);</span>
+
+<span class="nc" id="L55">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
