@@ -44,7 +44,7 @@ def encrypt_data(key, data):
 
 def decrypt_data(key, e_data):
     '''
-        Decrypts the Encrypted Data using Shared Key.
+        Decrypt the Encrypted Data using Shared Key.
 
         Parameters:
 
